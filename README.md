@@ -1,3 +1,6 @@
+
+[ ![Codeship Status for areo/areo](https://www.codeship.io/projects/7f6c83e0-a247-0132-c1c1-02cfa213237c/status)](https://www.codeship.io/projects/65745)
+
 # manta-blob-store
 
 [blob store](https://github.com/maxogden/abstract-blob-store) that stores blobs in manta 
