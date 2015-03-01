@@ -1,0 +1,22 @@
+{
+  "name": "manta-blob-store",
+  "version": "1.0.0",
+  "description": "Manta blob store, implementation of abstract-blob-store",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test.js"
+  },
+  "keywords": [
+    "manta",
+    "abstract-blob-store"
+  ],
+  "author": "Kim Lokøy",
+  "license": "MIT",
+  "devDependencies": {
+    "abstract-blob-store": "^3.2.0",
+    "tape": "^3.5.0"
+  },
+  "dependencies": {
+    "manta": "^1.4.7"
+  }
+}
