@@ -6,6 +6,10 @@
   "scripts": {
     "test": "tape test.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/klokoy/manta-blob-store.git"
+  },
   "keywords": [
     "manta",
     "abstract-blob-store"
