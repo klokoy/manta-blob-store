@@ -27,7 +27,9 @@ function prepOpts(opts) {
 
 MantaBlobStore.prototype.createReadStream = function(opts) {
     var options = prepOpts(opts);
-    return this.client.createReadStream(mantaPath + options.key);
+    var fullKey = path.join(mantaPath, options.key);
+
+    return this.client.createReadStream(fullKey);
 }
 
 MantaBlobStore.prototype.createWriteStream = function(opts, cb) {
@@ -36,10 +38,12 @@ MantaBlobStore.prototype.createWriteStream = function(opts, cb) {
     var options = prepOpts(opts);
     var dirname = path.dirname(options.key);
     var passthrough = new PassThrough;
+    var fullDirname = path.join(mantaPath, dirname);
 
-    self.client.mkdirp(mantaPath + dirname, function(err) {
+    self.client.mkdirp(fullDirname, function(err) {
 
-        var stream = self.client.createWriteStream(mantaPath + options.key);
+        var fullKey = path.join(mantaPath, options.key);        
+        var stream = self.client.createWriteStream(fullKey);
 
         passthrough
             .pipe(stream);
@@ -55,14 +59,16 @@ MantaBlobStore.prototype.createWriteStream = function(opts, cb) {
 
 MantaBlobStore.prototype.remove = function(opts, cb) {
     var options = prepOpts(opts);
+    var fullKey = path.join(mantaPath, options.key);
 
-    this.client.unlink(mantaPath + options.key, cb);
+    this.client.unlink(fullKey, cb);
 }
 
 MantaBlobStore.prototype.exists = function(opts, cb) {
     var options = prepOpts(opts);
+    var fullKey = path.join(mantaPath, options.key);
 
-    this.client.get(mantaPath + options.key, function(err, value) {
+    this.client.get(fullKey, function(err, value) {
         cb(null, !err);
     });
 }
