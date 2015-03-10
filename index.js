@@ -1,3 +1,6 @@
+var path = require('path'),
+    PassThrough = require('stream').PassThrough
+
 var mantaPath;
 
 function MantaBlobStore(opts) {
@@ -28,14 +31,26 @@ MantaBlobStore.prototype.createReadStream = function(opts) {
 }
 
 MantaBlobStore.prototype.createWriteStream = function(opts, cb) {
-    var options = prepOpts(opts);
-    stream = this.client.createWriteStream(mantaPath + options.key);
+    var self = this;
 
-    stream.once('close', function(res) {
-        cb(null, options);
+    var options = prepOpts(opts);
+    var dirname = path.dirname(options.key);
+    var passthrough = new PassThrough;
+
+    self.client.mkdirp(mantaPath + dirname, function(err) {
+
+        var stream = self.client.createWriteStream(mantaPath + options.key);
+
+        passthrough
+            .pipe(stream);
+
+        stream.once('close', function(res) {
+            cb(null, options);
+        });
+
     });
 
-    return stream;
+    return passthrough;
 }
 
 MantaBlobStore.prototype.remove = function(opts, cb) {
