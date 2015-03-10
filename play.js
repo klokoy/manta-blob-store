@@ -22,7 +22,7 @@ var store = new MantaBlobStore({
 
 //create a write stream on the store
 var ws = store.createWriteStream({
-    key: 'file.txt'
+    key: 'newFolder/a/b/c/d/file.txt'
 }, function() {
 
     //Create a read stream from the store
