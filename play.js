@@ -27,7 +27,7 @@ var ws = store.createWriteStream({
 
     //Create a read stream from the store
     var rs = store.createReadStream({
-        key: 'file.txt'
+        key: 'newFolder/a/b/c/d/file.txt'
     })
 
     //pipe the stream from manta to stdout
